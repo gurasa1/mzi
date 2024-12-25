@@ -1,46 +1,46 @@
 package CWSerial;
 
-import CWSerial.Student;
+import CWSerial.Library;
 
+import java.awt.print.Book;
 import java.io.*;
+import java.util.Scanner;
 
 public class Mainn{
     public static void main(String[] args) {
-        Student student = new Student("8324","nika",74.2);
-        Student student2 = new Student("8325","mari",82.6);
-        Student student3 = new Student("8326","luka",68);
-        Student student4 = new Student("8327","demetre",84.3);
+        Library book1 = new Library("001","The House of Mirth", "Edith Wharton", true);
+        Library book2 = new Library("002","East of Eden", "John Steinbeck", true);
+        Library book3 = new Library("003","The Sun Also Rises", "Ernest Hemingway", true);
+        Library book4 = new Library("003","Vile Bodies", "Evelyn Waugh", true);
         try{
-            FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\itsme\\IdeaProjects\\Project\\src\\CWSerial\\out.txt");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(student);
-            objectOutputStream.writeObject(student2);
-            objectOutputStream.writeObject(student3);
-            objectOutputStream.writeObject(student4);
-            objectOutputStream.close();
-            fileOutputStream.close();
-        }catch (Exception exception){
-            System.out.println("error");
-        }
-
-        try{
-            FileInputStream fileinput = new FileInputStream("C:\\Users\\itsme\\IdeaProjects\\Project\\src\\CWSerial\\out.txt");
-            ObjectInputStream inputStream = new ObjectInputStream(fileinput);
-            double max =0;
-            for(int i=0; i<4; i++){
-                Student students = (Student) inputStream.readObject();
-                System.out.println(students.id);
-                System.out.println(students.name);
-                System.out.println(students.grade);
-                if(students.grade>max){
-                    max=students.grade;
+            System.out.println("input a choice\n1.Save current library information\n2.Display current library information");
+            Scanner scanner = new Scanner(System.in);
+            int choice2= scanner.nextInt();
+            if(choice2==1) {
+                FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\itsme\\IdeaProjects\\Project\\src\\Projectt\\out.txt");
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(book1);
+                objectOutputStream.writeObject(book2);
+                objectOutputStream.writeObject(book3);
+                objectOutputStream.writeObject(book4);
+                objectOutputStream.close();
+                fileOutputStream.close();
+            }else{
+                if(choice2==2){
+                    FileInputStream fileinput = new FileInputStream("C:\\Users\\itsme\\IdeaProjects\\Project\\src\\Projectt\\out.txt");
+                    ObjectInputStream inputStream = new ObjectInputStream(fileinput);
+                    for(int i=0; i<4; i++){
+                        Library book = (Library) inputStream.readObject();
+                        System.out.println(book.id);
+                        System.out.println(book.author);
+                        System.out.println(book.title);
+                        book.Takebook();
+                    }
                 }
             }
-            System.out.println("best grade : " +max);
-        }catch(Exception e){
+        }catch (Exception exception) {
             System.out.println("error");
         }
     }
-
 }
 
